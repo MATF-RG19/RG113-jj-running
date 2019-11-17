@@ -22,10 +22,6 @@ void Cube3::make_cube3() const {
 	}
 }
 
-void Cube3::set_visible(bool visible[3]) {
-	for(int i =0; i < 3; i++)
-			  cubes[i].set_visible(visible[i]);
-}
 bool Cube3::is_visible(int n) {
 	return cubes[n].is_visible();
 	return true;
@@ -57,5 +53,7 @@ void Cube3::reorder_cube3() {
 			visibles[1] = visibles[0] = visibles[2] = true;
 			break;
 	}
-	set_visible(visibles);
+
+	for(int i =0; i < 3; i++)
+			  cubes[i].set_visible(visibles[i]);
 }
