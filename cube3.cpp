@@ -12,7 +12,7 @@ void Cube3::make_cube3() const {
 		if(!cubes[i].is_visible())
 			  continue;
 		glPushMatrix();
-		glColor3f(1, 0, 0);
+		glColor3f(_num, 0, 0);
 		glTranslatef(-2+i*2, 0, 0);
 		glScalef(2, 1, 10);
 
@@ -30,15 +30,19 @@ bool Cube3::is_visible(int n) {
 void Cube3::reorder_cube3() {
 	bool visibles[3];
 	srand(time(NULL));
+	_type = ORDINARY;
 	switch(rand()%7) {
 		case 0: 
 			visibles[2] = visibles[1] = !(visibles[0] = true);
+			_type = SWITCHING;
 			break;
 		case 1:
 			visibles[2] = visibles[0] = !(visibles[1] = true);
+			_type = SWITCHING;
 			break;
 		case 2:
 			visibles[1] = visibles[0] = !(visibles[2] = true);
+			_type = SWITCHING;
 			break;
 		case 3: 
 			visibles[2] = visibles[1] = !(visibles[0] = false);
@@ -56,4 +60,21 @@ void Cube3::reorder_cube3() {
 
 	for(int i =0; i < 3; i++)
 			  cubes[i].set_visible(visibles[i]);
+	_num = 1.;
+}
+void Cube3::advance() {
+	if(_type == ORDINARY)
+			  return;
+	else if (_type == SWITCHING) {
+		_num -= .03;	
+		if(_num <= 0){
+			 _num = 1;
+			for(int i =0 ;i < 3; i++)
+				if(cubes[i].is_visible()) {
+					cubes[(i+1)%3].set_visible(true);
+					cubes[i].set_visible(false);
+					break;
+				}
+		}
+	}
 }

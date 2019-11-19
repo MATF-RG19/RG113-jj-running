@@ -12,6 +12,9 @@ void RunningPath::advance() {
 	position += 0.2;
 	if(position >= RunningPath::granica)
 			  reorder_new_path();
+	else 
+			  for(int i =0; i < NumOfVisiblePath; i++)
+						 paths[i]->advance();
 }
 void RunningPath::make_path() const {
 	glPushMatrix();

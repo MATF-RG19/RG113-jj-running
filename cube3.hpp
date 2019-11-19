@@ -4,12 +4,16 @@
 class Cube;
 
 class Cube3 {
+	enum TypeOfCube3 {ORDINARY, SWITCHING, MOVING};
+	TypeOfCube3 _type = ORDINARY;
 	Cube *cubes;
+	float _num = 1.;
 public:
 	Cube3();
 	void make_cube3() const;
 	bool is_visible(int n);
 	void reorder_cube3();
+	void advance();
 };
 
 #endif
