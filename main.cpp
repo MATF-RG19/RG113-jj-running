@@ -1,13 +1,16 @@
 #include <GL/glut.h>
 #include <iostream>
 #include "runnning_enviroment.hpp"
+#include "player.hpp"
 float curr = -3.5;
 float murr = -5;
 int rotate = 0;
 RunningPath RE;
+Player player;
 static void display();
 static void reshape(int, int);
 static void keyboard(unsigned char, int, int);
+static void ky(int , int, int);
 static void timer(int);
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
@@ -22,6 +25,7 @@ int main(int argc, char** argv) {
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
+	glutSpecialFunc(ky);
 	glutTimerFunc(50, timer, 1);
 
 	glutMainLoop();
@@ -32,9 +36,9 @@ static void reshape(int w, int h) {
 	glViewport(0, 0, w, h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(60, 1.*w/h, .1, 100);
+	gluPerspective(65, 1.*w/h, .1, 100);
 }
-
+float s = 3;
 static void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
@@ -44,6 +48,9 @@ static void display() {
 				  0, 1, 0);
 
 	RE.make_path();
+	glTranslatef(0, s, 
+						 6);
+	player.draw_player();
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -58,9 +65,19 @@ static void display() {
 }
 
 static void keyboard(unsigned char c, int, int) {
+		  if(c == '+')s+=.1;
+		  else if(c == ' ')
+				player.set_jumping();
+		  else s-=.1;
+		  player.move_on_keyboard(c);
+		  std::cout << s << std::endl;
+}
+static void ky(int c, int, int) {
+	player.move_on_keyboard(c);
 }
 static void timer(int value) {
 	RE.advance();
+	player.advance();
 	glutTimerFunc(50, timer, 1);
 	glutPostRedisplay();
 }

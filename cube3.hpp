@@ -8,6 +8,7 @@ class Cube3 {
 	TypeOfCube3 _type = ORDINARY;
 	Cube *cubes;
 	float _num = 1.;
+	float _mv = 0;
 public:
 	Cube3();
 	void make_cube3() const;

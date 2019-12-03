@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "cube3.hpp"
+
 RunningPath::RunningPath() {
 	paths = new Cube3*[NumOfVisiblePath];
 	for(int i = 0; i < NumOfVisiblePath; i++)

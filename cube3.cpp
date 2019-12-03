@@ -31,7 +31,7 @@ void Cube3::reorder_cube3() {
 	bool visibles[3];
 	srand(time(NULL));
 	_type = ORDINARY;
-	switch(rand()%7) {
+	switch(rand()%8) {
 		case 0: 
 			visibles[2] = visibles[1] = !(visibles[0] = true);
 			_type = SWITCHING;
@@ -56,6 +56,9 @@ void Cube3::reorder_cube3() {
 		case 6:
 			visibles[1] = visibles[0] = visibles[2] = true;
 			break;
+		case 7:
+			visibles[2] = visibles[1] = !(visibles[0] = true);
+			_type = MOVING;
 	}
 
 	for(int i =0; i < 3; i++)
@@ -77,4 +80,10 @@ void Cube3::advance() {
 				}
 		}
 	}
+	else if(_type == MOVING) {
+
+
+	}
+
+
 }
