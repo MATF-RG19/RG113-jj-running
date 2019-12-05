@@ -26,7 +26,11 @@ void Player::draw_body() const {
 void Player::draw_arms() const {
 	glPushMatrix();
 	glTranslatef(0.4, 0, 0);
-	glRotatef(-_rotating, 1, 0, 0);
+	if(_falling) {
+			  glRotatef(_rotate_hends_when_falling, 0, 0, 1);
+	}
+	else
+		glRotatef(-_rotating, 1, 0, 0);
 	glScalef(0.14, .6, 0.4);
 	glColor3f(0, 1, 0);glutSolidCube(1);
 	
@@ -37,7 +41,12 @@ void Player::draw_arms() const {
 
 	glPushMatrix();
 	glTranslatef(-0.4, 0, 0);
-	glRotatef(_rotating, 1, 0, 0);
+
+	if(_falling) {
+			  glRotatef(-_rotate_hends_when_falling, 0, 0, 1);
+	}
+	else
+		glRotatef(_rotating, 1, 0, 0);
 	glScalef(0.14, .6, 0.4);
 	
 	glColor3f(0, 1, 0);
@@ -75,8 +84,9 @@ void Player::jump() {
 	if(_in_air >= pom)
 			  _falling = true;
 	_in_air = pom;
+	if(_falling)_rotate_hends_when_falling+=4;
 	if(_in_air <= 0) {
-		_on_ground = !(_sec_in_air = _in_air = _falling = 0);
+		_on_ground = !(_rotate_hends_when_falling = _sec_in_air = _in_air = _falling = 0);
 		if(!_current_cube3->is_visible(_index_of_current_cube)) {
 			_falling_to_game_over = true;
 			_initial_velocity_to_game_over = -7;

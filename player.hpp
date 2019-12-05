@@ -14,6 +14,7 @@ class Player {
 	bool _falling_to_game_over = false;
 	int _add= 1;
 	int _initial_velocity_to_game_over = 0;
+	int _rotate_hends_when_falling = 0;
 	void draw_legs() const;
 	void draw_body() const;
 	void draw_arms() const;
