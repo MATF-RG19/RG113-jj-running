@@ -5,8 +5,8 @@
 float curr = -3.5;
 float murr = -5;
 int rotate = 0;
-RunningPath RE;
 Player player;
+RunningPath RE(&player);
 static void display();
 static void reshape(int, int);
 static void keyboard(unsigned char, int, int);
@@ -38,7 +38,7 @@ static void reshape(int w, int h) {
 	glLoadIdentity();
 	gluPerspective(65, 1.*w/h, .1, 100);
 }
-float s = 3;
+float s = 1.7;
 static void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
