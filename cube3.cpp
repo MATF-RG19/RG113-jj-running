@@ -3,6 +3,7 @@
 #include <time.h>
 #include "cube.hpp"
 #include "cube3.hpp"
+#include "player.hpp"
 
 Cube3::Cube3() : cubes(new Cube[3]) {
 }
@@ -81,9 +82,40 @@ void Cube3::advance() {
 		}
 	}
 	else if(_type == MOVING) {
-
-
 	}
-
-
+}
+#include <iostream>
+void Cube3::check_on_what_cube_is_player(Player &p) const{
+	float x = p.getX();
+	int index = -1;
+	if(x <= 0.7 && x >= -0.7)
+	{			  
+			std::cout << "skroz na srednjem" << std::endl;
+			index = 1;	
+	}
+	else if(x >= 1.3 && x <= 2.7) 
+	{
+			std::cout << "skroz na desnom" << std::endl;
+			index = 2;
+									
+	}
+	else if(x <= -1.3 && x >=  -2.7) 
+	{
+			std::cout << "skroz na levom" << std::endl;
+			index = 0;
+	}
+	else if(x >= 3) 
+			std::cout << "krece da pada desno" << std::endl;
+	else if(x >= 3.3)
+			std::cout << "ispo desno " << std::endl;
+	else if(x <= -3) 
+			std::cout << "krece da pada levo" << std::endl;
+	else if(x <= -3.3)
+			std::cout << "ispo levo" << std::endl;
+	else if(x > .7 && x <1.3)
+			std::cout << "izmedj srednjeg i desnog" << std::endl;
+	else if(x > -1.3 && x < 0.7)
+			std::cout << "izmedj srednjeg i levog" << std::endl;
+	if(index != -1)
+		p.set_current_cube(index);
 }

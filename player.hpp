@@ -19,13 +19,14 @@ class Player {
 	void draw_body() const;
 	void draw_arms() const;
 	void draw_head() const;
-	void check_and_set_current_cube();
 	void jump();
 	void going_up();
 	void run();
 	void falling_to_game_over();
 public:
 	void set_current_cube3(Cube3* c3);
+	void set_current_cube(int ind){ _index_of_current_cube = ind;}
+	float getX()const { return _position_in_x_direction;}
 	void set_jumping();
 	void draw_player() const;
 	void move_on_keyboard(int);
