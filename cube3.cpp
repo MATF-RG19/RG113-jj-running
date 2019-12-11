@@ -108,25 +108,20 @@ void Cube3::check_if_player_is_on_this_and_update(Player &p) {
 		//	std::cout << "skroz na levom" << std::endl;
 			index = 0;
 	}
-	/*
-	else if(x >= 3) 
-			std::cout << "krece da pada desno" << std::endl;
 	else if(x >= 3.3)
-			std::cout << "ispo desno " << std::endl;
-	else if(x <= -3) 
-			std::cout << "krece da pada levo" << std::endl;
+			  index = -1;
 	else if(x <= -3.3)
-			std::cout << "ispo levo" << std::endl;
+			  index = -1;
 	else if(x > .7 && x <1.3)
-			std::cout << "izmedj srednjeg i desnog" << std::endl;
-	else if(x > -1.3 && x < 0.7)
-			std::cout << "izmedj srednjeg i levog" << std::endl;
-			*/
+	{
+		if(cubes[1].is_visible())index = 1;
+		else if(cubes[2].is_visible())index = 2;
+	}
+	else if(x > -1.3 && x < -0.7)
+	{
+		if(cubes[1].is_visible())index = 1;
+		else if(cubes[0].is_visible())index = 0;
+	}
 
-//	std:: cout << "index " << index << std::endl;
-	if(index != -1)
-		//p.set_current_cube(index);
-		//*/
 	_index_of_current_cube = index;
-//	std::cout << _index_of_current_cube << std::endl;
 }
