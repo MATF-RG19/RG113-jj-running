@@ -123,6 +123,7 @@ void Player::move_on_keyboard(int c) {
 void Player::set_current_cube3(PeaceOfPath* c3) {
 	_current_cube3 = c3;
 //	std::cout << _current_cube3->is_visible(0) <<  _current_cube3->is_visible(1) << _current_cube3->is_visible(2) << std::endl;;
+	_current_cube3->check_if_player_is_on_this_and_update(*this);
 }
 
 
