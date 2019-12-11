@@ -87,7 +87,8 @@ void Player::jump() {
 	if(_falling)_rotate_hends_when_falling+=4;
 	if(_in_air <= 0) {
 		_on_ground = !(_rotate_hends_when_falling = _sec_in_air = _in_air = _falling = 0);
-		if(!_current_cube3->is_visible(_index_of_current_cube)) {
+		if(!_current_cube3->is_player_on_this()) {
+				  std::cout << "odje" << std::endl;
 			_falling_to_game_over = true;
 			_initial_velocity_to_game_over = -7;
 		}
@@ -99,7 +100,7 @@ void Player::advance() {
 			 return falling_to_game_over();
 	if(!_on_ground)
 			  jump();
-	else if(!_current_cube3->is_visible(_index_of_current_cube)){
+	else if(!_current_cube3->is_player_on_this()){
 			_falling_to_game_over = true;
 			_initial_velocity_to_game_over = 0;
 	}
@@ -116,12 +117,12 @@ void Player::move_on_keyboard(int c) {
 		  _position_in_x_direction-=.1;
 	else if(c == GLUT_KEY_RIGHT)
 		  _position_in_x_direction+=.1;	  
-	_current_cube3->check_on_what_cube_is_player(*this);
+	_current_cube3->check_if_player_is_on_this_and_update(*this);
 }
 
-void Player::set_current_cube3(Cube3* c3) {
+void Player::set_current_cube3(PeaceOfPath* c3) {
 	_current_cube3 = c3;
-	std::cout << _current_cube3->is_visible(0) <<  _current_cube3->is_visible(1) << _current_cube3->is_visible(2) << std::endl;;
+//	std::cout << _current_cube3->is_visible(0) <<  _current_cube3->is_visible(1) << _current_cube3->is_visible(2) << std::endl;;
 }
 
 

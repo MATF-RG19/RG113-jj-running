@@ -1,8 +1,8 @@
 #ifndef _PLAYER_
 #define _PLAYER_
-class Cube3;
+#include "peaceofpath.hpp"
 class Player {
-	Cube3* _current_cube3;
+	PeaceOfPath* _current_cube3;
 	int _index_of_current_cube = 1;
 	int _size = 1;
 	float _position_in_x_direction = 0;
@@ -24,7 +24,7 @@ class Player {
 	void run();
 	void falling_to_game_over();
 public:
-	void set_current_cube3(Cube3* c3);
+	void set_current_cube3(PeaceOfPath* c3);
 	void set_current_cube(int ind){ _index_of_current_cube = ind;}
 	float getX()const { return _position_in_x_direction;}
 	void set_jumping();
