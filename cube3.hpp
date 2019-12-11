@@ -9,6 +9,7 @@ class Cube3 : public PeaceOfPath{
 		  public:
 	Cube *cubes;
 	float _num = 1.;
+	float diffuse[4] = {1, 0, 0, 1};
 	float _mv = 0;
 	/*index kocke na kojoj je igrac*/
 	int _index_of_current_cube = 1;

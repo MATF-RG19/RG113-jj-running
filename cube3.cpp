@@ -9,11 +9,16 @@ Cube3::Cube3() : cubes(new Cube[3]) {
 }
 
 void Cube3::make() const {
+	float diffuse[4] = {0, 0, 0, 1};
+	if(_type == ORDINARY)
+			  diffuse[0] = 1;
+	else if(_type == SWITCHING)
+			  diffuse[2] = _num;
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
 	for(int i = 0; i < 3; i++) {
 		if(!cubes[i].is_visible())
 			  continue;
 		glPushMatrix();
-		glColor3f(_num, 0, 0);
 		glTranslatef(-2+i*2, 0, 0);
 		glScalef(2, 1, 10);
 
@@ -34,7 +39,7 @@ void Cube3::init() {
 	bool visibles[3];
 	srand(time(NULL));
 	_type = ORDINARY;
-	switch(rand()%8) {
+	switch(rand()%7) {
 		case 0: 
 			visibles[2] = visibles[1] = !(visibles[0] = true);
 			_type = SWITCHING;
@@ -59,9 +64,6 @@ void Cube3::init() {
 		case 6:
 			visibles[1] = visibles[0] = visibles[2] = true;
 			break;
-		case 7:
-			visibles[2] = visibles[1] = !(visibles[0] = true);
-			_type = MOVING;
 	}
 
 	for(int i =0; i < 3; i++)

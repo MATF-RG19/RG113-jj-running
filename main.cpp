@@ -12,6 +12,7 @@ static void reshape(int, int);
 static void keyboard(unsigned char, int, int);
 static void ky(int , int, int);
 static void timer(int);
+void init();
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -19,17 +20,24 @@ int main(int argc, char** argv) {
 	glutInitWindowSize(640, 480);
 
 	glutCreateWindow("djole");
+	init();
 
+	glutMainLoop();
+	return 0;
+}
+void init() {
 	glClearColor(0, 0, 0, 0);
+	
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(ky);
+		
 	glutTimerFunc(50, timer, 1);
-
-	glutMainLoop();
-	return 0;
 }
 
 static void reshape(int w, int h) {

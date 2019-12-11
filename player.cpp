@@ -60,15 +60,19 @@ void Player::draw_arms() const {
 
 void Player::draw_head() const { 
 	glTranslatef(0, .8, 0);
-	glutWireSphere(0.3, 20, 20);
+	glutSolidSphere(0.3, 20, 20);
 }
 
 void Player::draw_player() const {
 	glTranslatef(_position_in_x_direction, _in_air, 0);
+	float ambient_diffuse[] = {1, 1, 0, 1};
+	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, ambient_diffuse);
 	draw_body();
 	draw_arms();
 	draw_legs();
 	draw_head();
+	ambient_diffuse[0] = ambient_diffuse[1] = ambient_diffuse[2] = .2;
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_diffuse);
 	glTranslatef(-_position_in_x_direction, -_in_air, 0);
 }
 
