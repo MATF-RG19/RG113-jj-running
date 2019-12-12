@@ -1,13 +1,12 @@
 #ifndef __CUBE3__
 #define __CUBE3__
 #include "peaceofpath.hpp"
-#include "cube.hpp"
 class Player;
 class Cube3 : public PeaceOfPath{
 	enum TypeOfCube3 {ORDINARY, SWITCHING, MOVING};
 	TypeOfCube3 _type = ORDINARY;
 		  public:
-	Cube *cubes;
+	bool _visibles[3] = {true, true, true};
 	float _num = 1.;
 	float diffuse[4] = {1, 0, 0, 1};
 	float _mv = 0;

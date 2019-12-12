@@ -1,11 +1,10 @@
 #include <GL/glut.h>
 #include <cstdlib>
 #include <time.h>
-#include "cube.hpp"
 #include "cube3.hpp"
 #include "player.hpp"
 
-Cube3::Cube3() : cubes(new Cube[3]) {
+Cube3::Cube3() {
 }
 
 void Cube3::make() const {
@@ -16,13 +15,15 @@ void Cube3::make() const {
 			  diffuse[2] = _num;
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
 	for(int i = 0; i < 3; i++) {
-		if(!cubes[i].is_visible())
+		if(!_visibles[i])
 			  continue;
 		glPushMatrix();
 		glTranslatef(-2+i*2, 0, 0);
 		glScalef(2, 1, 10);
 
-		cubes[i].make_cube();
+
+		glutSolidCube(1);
+		glutWireCube(1);
 
 		glPopMatrix();
 	}
@@ -30,44 +31,41 @@ void Cube3::make() const {
 #include <iostream>
 bool Cube3::is_player_on_this() const {
 		
-	if(!(_index_of_current_cube != -1 && cubes[_index_of_current_cube].is_visible()))
-		  std::cout << (_index_of_current_cube != -1) <<  " " <<  cubes[_index_of_current_cube].is_visible() <<  " razmak " << _index_of_current_cube << std::endl;;
-	return _index_of_current_cube != -1 && cubes[_index_of_current_cube].is_visible();
+	if(!(_index_of_current_cube != -1 && _visibles[_index_of_current_cube]))
+		  std::cout << (_index_of_current_cube != -1) <<  " " <<  _visibles[_index_of_current_cube] <<  " razmak " << _index_of_current_cube << std::endl;;
+	return _index_of_current_cube != -1 && _visibles[_index_of_current_cube];
 }
 
 void Cube3::init() {
-	bool visibles[3];
 	srand(time(NULL));
 	_type = ORDINARY;
 	switch(rand()%7) {
 		case 0: 
-			visibles[2] = visibles[1] = !(visibles[0] = true);
+			_visibles[2] = _visibles[1] = !(_visibles[0] = true);
 			_type = SWITCHING;
 			break;
 		case 1:
-			visibles[2] = visibles[0] = !(visibles[1] = true);
+			_visibles[2] = _visibles[0] = !(_visibles[1] = true);
 			_type = SWITCHING;
 			break;
 		case 2:
-			visibles[1] = visibles[0] = !(visibles[2] = true);
+			_visibles[1] = _visibles[0] = !(_visibles[2] = true);
 			_type = SWITCHING;
 			break;
 		case 3: 
-			visibles[2] = visibles[1] = !(visibles[0] = false);
+			_visibles[2] = _visibles[1] = !(_visibles[0] = false);
 			break;
 		case 4:
-			visibles[2] = visibles[0] = !(visibles[1] = false);
+			_visibles[2] = _visibles[0] = !(_visibles[1] = false);
 			break;
 		case 5:
-			visibles[1] = visibles[0] = !(visibles[2] = false);
+			_visibles[1] = _visibles[0] = !(_visibles[2] = false);
 			break;
 		case 6:
-			visibles[1] = visibles[0] = visibles[2] = true;
+			_visibles[1] = _visibles[0] = _visibles[2] = true;
 			break;
 	}
 
-	for(int i =0; i < 3; i++)
-			  cubes[i].set_visible(visibles[i]);
 	_num = 1.;
 }
 void Cube3::advance() {
@@ -78,9 +76,9 @@ void Cube3::advance() {
 		if(_num <= 0){
 			 _num = 1;
 			for(int i =0 ;i < 3; i++)
-				if(cubes[i].is_visible()) {
-					cubes[(i+1)%3].set_visible(true);
-					cubes[i].set_visible(false);
+				if(_visibles[i]) {
+					_visibles[(i+1)%3] = (true);
+					_visibles[i] = (false);
 					break;
 				}
 		}
@@ -114,13 +112,13 @@ void Cube3::check_if_player_is_on_this_and_update(Player &p) {
 			  index = -1;
 	else if(x > .7 && x <1.3)
 	{
-		if(cubes[1].is_visible())index = 1;
-		else if(cubes[2].is_visible())index = 2;
+		if(_visibles[1])index = 1;
+		else if(_visibles[2])index = 2;
 	}
 	else if(x > -1.3 && x < -0.7)
 	{
-		if(cubes[1].is_visible())index = 1;
-		else if(cubes[0].is_visible())index = 0;
+		if(_visibles[1])index = 1;
+		else if(_visibles[0])index = 0;
 	}
 
 	_index_of_current_cube = index;

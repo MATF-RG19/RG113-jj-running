@@ -9,8 +9,6 @@ RunningPath::RunningPath(Player* player) {
 	paths = new PeaceOfPath*[NumOfVisiblePath];
 	for(int i =0; i < NumOfVisiblePath; i++)
 			  paths[i] = new Cube3;
-	for(int i = 0; i < NumOfVisiblePath; i++)
-			  paths[i] = new Cube3();
 	player->set_current_cube3(paths[NumOfVisiblePath-2]);
 }
 void RunningPath::advance() {
