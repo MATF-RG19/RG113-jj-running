@@ -92,23 +92,19 @@ void Cube3::check_if_player_is_on_this_and_update(Player &p) {
 	int index = -1;
 	if(x <= 0.7 && x >= -0.7)
 	{			  
-		//	std::cout << "skroz na srednjem" << std::endl;
 			index = 1;	
 	}
-	else if(x >= 1.3 && x <= 2.7) 
+	else if(x >= 1.3 && x < 3.3) 
 	{
-		//	std::cout << "skroz na desnom" << std::endl;
 			index = 2;
-									
 	}
-	else if(x <= -1.3 && x >=  -2.7) 
+	else if(x <= -1.3 && x > -3.2) 
 	{
-		//	std::cout << "skroz na levom" << std::endl;
 			index = 0;
 	}
-	else if(x >= 3.3)
+	else if(x >= 3.2)
 			  index = -1;
-	else if(x <= -3.3)
+	else if(x <= -3.2)
 			  index = -1;
 	else if(x > .7 && x <1.3)
 	{
