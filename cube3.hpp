@@ -12,13 +12,12 @@ class Cube3 : public PeaceOfPath{
 	float _mv = 0;
 	/*index kocke na kojoj je igrac*/
 	int _index_of_current_cube = 1;
+	bool check_if_player_is_on_this_X(Player&) override;
 public:
 	void init() override;
 	Cube3();
 	void make() const override;
 	void advance() override;
-	void check_if_player_is_on_this_and_update(Player&) override;
-	bool is_player_on_this() const override;
 };
 
 #endif

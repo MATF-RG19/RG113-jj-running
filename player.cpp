@@ -26,9 +26,8 @@ void Player::draw_body() const {
 void Player::draw_arms() const {
 	glPushMatrix();
 	glTranslatef(0.4, 0, 0);
-	if(_falling) {
+	if(_falling)
 			  glRotatef(_rotate_hends_when_falling, 0, 0, 1);
-	}
 	else
 		glRotatef(-_rotating, 1, 0, 0);
 	glScalef(0.14, .6, 0.4);
@@ -64,7 +63,8 @@ void Player::draw_head() const {
 }
 
 void Player::draw_player() const {
-	glTranslatef(_position_in_x_direction, _in_air, 0);
+//	glTranslatef(0, _position_in_y_direction, 0);
+	glTranslatef(_position_in_x_direction, _position_in_y_direction, 0);
 	float ambient_diffuse[] = {1, 1, 0, 1};
 	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, ambient_diffuse);
 	draw_body();
@@ -73,7 +73,8 @@ void Player::draw_player() const {
 	draw_head();
 	ambient_diffuse[0] = ambient_diffuse[1] = ambient_diffuse[2] = .2;
 	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_diffuse);
-	glTranslatef(-_position_in_x_direction, -_in_air, 0);
+	glTranslatef(-_position_in_x_direction, -_position_in_y_direction, 0);
+//	glTranslatef(0, -_position_in_y_direction, 0);
 }
 
 void Player::run() {
@@ -82,36 +83,30 @@ void Player::run() {
 		_add *= -1;
 }
 #include <iostream>
-void Player::jump() {
+void Player::calculate_move_in_Ydir() {
 	_sec_in_air += 0.05;
-	float pom = 7*_sec_in_air - 4.9*_sec_in_air*_sec_in_air;
-	if(_in_air >= pom)
-			  _falling = true;
-	_in_air = pom;
-	if(_falling)_rotate_hends_when_falling+=4;
-	if(_in_air <= 0) {
-		_on_ground = !(_rotate_hends_when_falling = _sec_in_air = _in_air = _falling = 0);
-		if(!_current_cube3->is_player_on_this()) {
-				  std::cout << "odje" << std::endl;
-			_falling_to_game_over = true;
-			_initial_velocity_to_game_over = -7;
-		}
-	}
+	float dh = 0.05;
+	float pom = _position_in_y_direction 
+			  +_initial_velocity_in_y_dirr*dh-9.8*(_sec_in_air-0.05)*dh-4.9*dh*dh;
+
+	if(_jumping && _position_in_y_direction >= pom)
+			  set_falling();
+
+	_position_in_y_direction = pom;
+
 }
 
 void Player::advance() {
-	if(_falling_to_game_over)
-			 return falling_to_game_over();
-	if(!_on_ground)
-			  jump();
-	else if(!_current_cube3->is_player_on_this()){
-			_falling_to_game_over = true;
-			_initial_velocity_to_game_over = 0;
-	}
+	if(_jumping || _falling)
+			  calculate_move_in_Ydir();
+
+	if(_falling)_rotate_hends_when_falling+=4;
 	run();
+	_current_cube3->check_if_player_is_on_this_and_update(*this);
 }
 void Player::set_jumping() {
-	_on_ground = false;
+	_jumping = true;
+	_initial_velocity_in_y_dirr = 7;
 }
 
 void Player::move_on_keyboard(int c) {
@@ -121,18 +116,23 @@ void Player::move_on_keyboard(int c) {
 		  _position_in_x_direction-=.1;
 	else if(c == GLUT_KEY_RIGHT)
 		  _position_in_x_direction+=.1;	  
-	_current_cube3->check_if_player_is_on_this_and_update(*this);
 }
 
 void Player::set_current_cube3(PeaceOfPath* c3) {
 	_current_cube3 = c3;
-//	std::cout << _current_cube3->is_visible(0) <<  _current_cube3->is_visible(1) << _current_cube3->is_visible(2) << std::endl;;
 	_current_cube3->check_if_player_is_on_this_and_update(*this);
 }
 
+void Player::set_falling(){_falling = true;
+	if(!_jumping)
+		_initial_velocity_in_y_dirr = 0;
+	else 
+		_initial_velocity_in_y_dirr = 7;
+	_jumping = false;
+}
 
-
-void Player::falling_to_game_over() {
-	_sec_in_air += .05;
-	_in_air = _initial_velocity_to_game_over*_sec_in_air - 4.9*_sec_in_air*_sec_in_air;
+void Player::set_on_ground(){_falling = _jumping = false;
+							_sec_in_air = 0;
+							_rotate_hends_when_falling = 0;
+							_initial_velocity_in_y_dirr = 0;
 }

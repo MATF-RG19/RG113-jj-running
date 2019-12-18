@@ -51,12 +51,12 @@ static void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0, 4, 10,
+	gluLookAt(0, 4, 12,
 				  0, 0, 0,
 				  0, 1, 0);
 
 	RE.make_path();
-	glTranslatef(0, s, 
+	glTranslatef(0, 0, 
 						 6);
 	player.draw_player();
 
