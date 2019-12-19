@@ -32,9 +32,11 @@ void PeaceOfPath::check_if_player_is_on_this_and_update(Player& p) {
 			  is_player_upper = false;
 	}
 	else if(pom && pom1)
+	{
 			  /*igrac nije na postolju po x kordinati i pre
 				* toga je padao*/
 			  is_player_upper = false;
+	}
 	else  if(is_player_upper)
 	{
 			  /*igrac je na postolju po x koord., vraca se na postolje*/

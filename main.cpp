@@ -75,12 +75,11 @@ bool stop = false;
 static void keyboard(unsigned char c, int, int) {
 		  if(c == '+')s+=.1;
 		  else if(c == ' ')
-				player.set_jumping();
+				player.move_on_keyboard(c);
 		  else if(c == 's')
 					 stop = true;
 		  else s-=.1;
 		  player.move_on_keyboard(c);
-		  std::cout << s << std::endl;
 }
 static void ky(int c, int, int) {
 	player.move_on_keyboard(c);

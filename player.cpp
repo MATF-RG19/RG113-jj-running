@@ -3,15 +3,35 @@
 #include "cube3.hpp"
 void Player::draw_legs() const { 
 	glPushMatrix();
-	glTranslatef(-.2, -.9, 0);
-	glRotatef(_rotating, 1, 0, 0);
+	if(!_slow_falling)
+	{
+		glTranslatef(-.2, -.9, 0);
+		glRotatef(_rotating, 1, 0, 0);
+	}
+	else
+	{
+		glTranslatef(0, -.6, 0);
+		glRotatef(3*_rotate_hends_when_falling, 0, 1, 0);
+		glTranslatef(-0.248, -0.248, 0);
+		glRotatef(-45, 0, 0, 1);
+	}
 	glScalef(.2, .7, .4);
 	glutWireCube(1);glColor3f(0, 1, 0);glutSolidCube(1);
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(.2, -.9, 0);
-	glRotatef(-_rotating, 1, 0, 0);
+	if(!_slow_falling)
+	{
+		glTranslatef(.2, -.9, 0);
+		glRotatef(-_rotating, 1, 0, 0);
+	}
+	else
+	{
+		glTranslatef(0, -.6, 0);
+		glRotatef(3*_rotate_hends_when_falling, 0, 1, 0);
+		glTranslatef(0.248, -0.248, 0);
+		glRotatef(45, 0, 0, 1);
+	}
 	glScalef(.2, .7, .4);
 	glutWireCube(1);glColor3f(0, 1, 0);glutSolidCube(1);
 	glPopMatrix();
@@ -85,9 +105,8 @@ void Player::run() {
 #include <iostream>
 void Player::calculate_move_in_Ydir() {
 	_sec_in_air += 0.05;
-	float dh = 0.05;
 	float pom = _position_in_y_direction 
-			  +_initial_velocity_in_y_dirr*dh-9.8*(_sec_in_air-0.05)*dh-4.9*dh*dh;
+			  +_initial_velocity_in_y_dirr*_dh-9.8*(_sec_in_air-0.05)*_dh-4.9*_dh*_dh;
 
 	if(_jumping && _position_in_y_direction >= pom)
 			  set_falling();
@@ -106,16 +125,21 @@ void Player::advance() {
 }
 void Player::set_jumping() {
 	_jumping = true;
-	_initial_velocity_in_y_dirr = 7;
+	_initial_velocity_in_y_dirr = 8;
 }
-
+#include <iostream>
 void Player::move_on_keyboard(int c) {
-	if(_falling_to_game_over)
-			  return;
 	if(c == GLUT_KEY_LEFT)
 		  _position_in_x_direction-=.1;
 	else if(c == GLUT_KEY_RIGHT)
 		  _position_in_x_direction+=.1;	  
+	else if(c == ' ' && !_jumping && !_falling)
+			  set_jumping();
+	else if(c == GLUT_KEY_UP){
+		if(_falling)
+				  _dh = (_slow_falling = !_slow_falling) ? 0.02 : 0.05;
+
+	}
 }
 
 void Player::set_current_cube3(PeaceOfPath* c3) {
@@ -123,16 +147,22 @@ void Player::set_current_cube3(PeaceOfPath* c3) {
 	_current_cube3->check_if_player_is_on_this_and_update(*this);
 }
 
-void Player::set_falling(){_falling = true;
+void Player::set_falling(){
+	_falling = true;
 	if(!_jumping)
 		_initial_velocity_in_y_dirr = 0;
 	else 
-		_initial_velocity_in_y_dirr = 7;
-	_jumping = false;
+	{
+		_initial_velocity_in_y_dirr = 8;
+	}
+		_jumping = false;
+	_dh = 0.05;
 }
 
 void Player::set_on_ground(){_falling = _jumping = false;
-							_sec_in_air = 0;
-							_rotate_hends_when_falling = 0;
-							_initial_velocity_in_y_dirr = 0;
+	_sec_in_air = 0;
+	_rotate_hends_when_falling = 0;
+	_initial_velocity_in_y_dirr = 0;
+	_dh = 0.05;
+	_slow_falling = false;
 }

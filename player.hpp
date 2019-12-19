@@ -9,9 +9,10 @@ class Player {
 	int _rotating = 0;
 	float _in_air = 1.7;
 	float _sec_in_air = 0;
+	float _dh = 0.05;
 	bool _jumping = false;
 	bool _falling = false;
-	bool _falling_to_game_over = false;
+	bool _slow_falling = false;
 	int _add= 1;
 	int _initial_velocity_in_y_dirr = 0;
 	int _rotate_hends_when_falling = 0;
@@ -23,6 +24,7 @@ class Player {
 	void run();
 	void falling_to_game_over();
 	void calculate_move_in_Ydir();
+	void set_jumping();
 public:
 	void set_y_position(float y) { _position_in_y_direction = y + 1.25;}
 	bool isFalling() {return _falling;}
@@ -32,7 +34,6 @@ public:
 	void set_current_cube3(PeaceOfPath* c3);
 	float getX()const { return _position_in_x_direction;}
 	float getYfeet()const { return _position_in_y_direction - 1.25;}
-	void set_jumping();
 	void draw_player() const;
 	void move_on_keyboard(int);
 	void advance();
