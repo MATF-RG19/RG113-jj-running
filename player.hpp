@@ -5,13 +5,14 @@
 class Player {
 	PeaceOfPath* _current_cube3;
 	float _position_in_x_direction = 0;
-	float _position_in_y_direction = 1.7;
+	float _position_in_y_direction = 10;
+	float _position_in_z_direction = 0;
 	int _rotating = 0;
 	float _in_air = 1.7;
 	float _sec_in_air = 0;
 	float _dh = 0.05;
 	bool _jumping = false;
-	bool _falling = false;
+	bool _falling = true;
 	bool _slow_falling = false;
 	int _add= 1;
 	int _initial_velocity_in_y_dirr = 0;
@@ -34,6 +35,7 @@ public:
 	void set_current_cube3(PeaceOfPath* c3);
 	float getX()const { return _position_in_x_direction;}
 	float getYfeet()const { return _position_in_y_direction - 1.25;}
+	float getZ()const {return _position_in_z_direction;}
 	void draw_player() const;
 	void move_on_keyboard(int);
 	void advance();

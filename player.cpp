@@ -47,7 +47,7 @@ void Player::draw_arms() const {
 	glPushMatrix();
 	glTranslatef(0.4, 0, 0);
 	if(_falling)
-			  glRotatef(_rotate_hends_when_falling, 0, 0, 1);
+			  glRotatef(_rotate_hends_when_falling > 100 ? 100 : _rotate_hends_when_falling, 0, 0, 1);
 	else
 		glRotatef(-_rotating, 1, 0, 0);
 	glScalef(0.14, .6, 0.4);
@@ -62,7 +62,7 @@ void Player::draw_arms() const {
 	glTranslatef(-0.4, 0, 0);
 
 	if(_falling) {
-			  glRotatef(-_rotate_hends_when_falling, 0, 0, 1);
+			  glRotatef(-_rotate_hends_when_falling < -100 ? -100 : -_rotate_hends_when_falling, 0, 0, 1);
 	}
 	else
 		glRotatef(_rotating, 1, 0, 0);
@@ -84,7 +84,7 @@ void Player::draw_head() const {
 
 void Player::draw_player() const {
 //	glTranslatef(0, _position_in_y_direction, 0);
-	glTranslatef(_position_in_x_direction, _position_in_y_direction, 0);
+	glTranslatef(_position_in_x_direction, _position_in_y_direction, -_position_in_z_direction);
 	float ambient_diffuse[] = {1, 1, 0, 1};
 	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, ambient_diffuse);
 	draw_body();
@@ -93,7 +93,7 @@ void Player::draw_player() const {
 	draw_head();
 	ambient_diffuse[0] = ambient_diffuse[1] = ambient_diffuse[2] = .2;
 	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_diffuse);
-	glTranslatef(-_position_in_x_direction, -_position_in_y_direction, 0);
+	glTranslatef(-_position_in_x_direction, -_position_in_y_direction, _position_in_z_direction);
 //	glTranslatef(0, -_position_in_y_direction, 0);
 }
 
@@ -116,6 +116,7 @@ void Player::calculate_move_in_Ydir() {
 }
 
 void Player::advance() {
+	_position_in_z_direction+=0.2;
 	if(_jumping || _falling)
 			  calculate_move_in_Ydir();
 
@@ -141,8 +142,11 @@ void Player::move_on_keyboard(int c) {
 
 	}
 }
+#include <iostream>
 
 void Player::set_current_cube3(PeaceOfPath* c3) {
+	_position_in_z_direction = -(c3->getLength()) / 2;
+	std::cout << _position_in_z_direction << " ajoj" << std::endl;
 	_current_cube3 = c3;
 	_current_cube3->check_if_player_is_on_this_and_update(*this);
 }

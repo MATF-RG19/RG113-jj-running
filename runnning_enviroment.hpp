@@ -1,15 +1,16 @@
 #ifndef R_E
 #define R_E
 #include "peaceofpath.hpp"
-#define NumOfVisiblePath 5
+#define NumOfVisiblePath 4
 class Player;
 class RunningPath {
 private:
 		  PeaceOfPath** paths;
 		  Player* _player;
-		  float position = 0;
+		  int _distance_between_paths= 1;
 		  bool _should_change = true;
 public:
+		  float position = 0;
 		  RunningPath(Player* player);
 		  void advance();
 		  void make_path()const;

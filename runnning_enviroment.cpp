@@ -12,13 +12,10 @@ RunningPath::RunningPath(Player* player) {
 	player->set_current_cube3(paths[NumOfVisiblePath-2]);
 }
 void RunningPath::advance() {
-	position += 0.2;
-	if(position >= RunningPath::granica)
-			  reorder_new_path();
-	else if(position >= 20.7 && _should_change) {
-		_should_change = false;
-		_player->set_current_cube3(paths[NumOfVisiblePath-3]);
-		Cube3* c = (Cube3*)paths[NumOfVisiblePath-3];
+		  
+	if(_player->getZ() >= paths[NumOfVisiblePath-1]->getLength()/2) {
+		reorder_new_path();
+		_player->set_current_cube3(paths[NumOfVisiblePath-2]);
 	} 
 	else 
 			  for(int i =0; i < NumOfVisiblePath; i++)
@@ -26,7 +23,7 @@ void RunningPath::advance() {
 }
 void RunningPath::make_path() const {
 	glPushMatrix();
-	glTranslatef(0, 0, position);
+	glTranslatef(0, 0, paths[NumOfVisiblePath-1]->getLength());
 	for(int i = NumOfVisiblePath-1; i >= 0; i--) {
 		paths[i]->make();
 		glTranslatef(0, 0, -10);
@@ -42,5 +39,3 @@ void RunningPath::reorder_new_path() {
 	paths[0] = pom;
 	paths[0]->init();
 }
-// eksperimentalno odredjena kosntanta
-float RunningPath::granica = 22.5;
