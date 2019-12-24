@@ -4,7 +4,8 @@ class Player;
 #include <iostream>
 class PeaceOfPath {
 protected:
-	float _yCoord;
+	float _yCoord, _xCoord;
+	float _width, _height;
 	virtual bool check_if_player_is_on_this_X(Player&);
 	bool is_player_upper = false;
 	int length = 10;

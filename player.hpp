@@ -2,6 +2,7 @@
 #define _PLAYER_
 #include "peaceofpath.hpp"
 #include <iostream>
+#include <utility>
 class Player {
 	PeaceOfPath* _current_cube3;
 	float _position_in_x_direction = 0;
@@ -28,10 +29,10 @@ class Player {
 	void set_jumping();
 public:
 	void set_y_position(float y) { _position_in_y_direction = y + 1.25;}
-	bool isFalling() {return _falling;}
+	bool isFalling()const {return _falling;}
 	void set_falling();
 	void set_on_ground();
-	bool isInTheAir() const {return _falling || _jumping;}
+	bool isJumping()const{return _jumping;}
 	void set_current_cube3(PeaceOfPath* c3);
 	float getX()const { return _position_in_x_direction;}
 	float getYfeet()const { return _position_in_y_direction - 1.25;}
@@ -39,6 +40,10 @@ public:
 	void draw_player() const;
 	void move_on_keyboard(int);
 	void advance();
+	std::pair<float, float> getXfeet() const{
+		return {_position_in_x_direction - 0.35, _position_in_x_direction + 0.35};
+
+	}
 };
 
 #endif

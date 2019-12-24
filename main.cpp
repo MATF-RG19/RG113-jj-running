@@ -52,7 +52,7 @@ static void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0, 4+player.getYfeet(), 6 - player.getZ(),
+	gluLookAt(0, 3+player.getYfeet(), 6 - player.getZ(),
 				  0, player.getYfeet(), -player.getZ(),
 				  0, 1, 0);
 	glRotatef(mv, 0, 1, 0);

@@ -11,8 +11,8 @@ void Player::draw_legs() const {
 	else
 	{
 		glTranslatef(0, -.6, 0);
-		glRotatef(3*_rotate_hends_when_falling, 0, 1, 0);
-		glTranslatef(-0.248, -0.248, 0);
+		glRotatef(4*_rotate_hends_when_falling, 0, 1, 0);
+		glTranslatef(-0.25, -0.25, 0);
 		glRotatef(-45, 0, 0, 1);
 	}
 	glScalef(.2, .7, .4);
@@ -28,8 +28,8 @@ void Player::draw_legs() const {
 	else
 	{
 		glTranslatef(0, -.6, 0);
-		glRotatef(3*_rotate_hends_when_falling, 0, 1, 0);
-		glTranslatef(0.248, -0.248, 0);
+		glRotatef(4*_rotate_hends_when_falling, 0, 1, 0);
+		glTranslatef(0.25, -0.25, 0);
 		glRotatef(45, 0, 0, 1);
 	}
 	glScalef(.2, .7, .4);

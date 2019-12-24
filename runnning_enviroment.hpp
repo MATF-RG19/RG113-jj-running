@@ -1,7 +1,7 @@
 #ifndef R_E
 #define R_E
 #include "peaceofpath.hpp"
-#define NumOfVisiblePath 4
+#define NumOfVisiblePath 6
 class Player;
 class RunningPath {
 private:
