@@ -8,6 +8,7 @@ class Cube3 : public PeaceOfPath{
 		  public:
 	bool _visibles[3] = {true, true, true};
 	float _num = 1.;
+	float _speed_of_disapiring = .03;
 	float diffuse[4] = {1, 0, 0, 1};
 	float _mv = 0;
 	/*index kocke na kojoj je igrac*/

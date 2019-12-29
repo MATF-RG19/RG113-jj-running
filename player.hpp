@@ -4,10 +4,15 @@
 #include <iostream>
 #include <utility>
 class Player {
+	enum TypeOfMovement {NOT_CHECKED, ON_GROUND, JUMPING, FALLING, SLOW_FALLING};
+	TypeOfMovement _movement = NOT_CHECKED;
+	friend class PeaceOfPath;
 	PeaceOfPath* _current_cube3;
 	float _position_in_x_direction = 0;
+	/*stavljamo igraca da u pocetku pada*/
 	float _position_in_y_direction = 10;
 	float _position_in_z_direction = 0;
+	float _dx = 0, _dy = 0, _dz = 0;
 	int _rotating = 0;
 	float _in_air = 1.7;
 	float _sec_in_air = 0;
@@ -27,12 +32,17 @@ class Player {
 	void falling_to_game_over();
 	void calculate_move_in_Ydir();
 	void set_jumping();
-public:
 	void set_y_position(float y) { _position_in_y_direction = y + 1.25;}
-	bool isFalling()const {return _falling;}
 	void set_falling();
+	std::pair<float, float> getXfeet() const{
+		return {_position_in_x_direction - 0.35, _position_in_x_direction + 0.35};
+	}
+	std::pair<float, float> getZfeet() const{
+		return {_position_in_z_direction - 0.2, _position_in_z_direction + 0.2};
+	}
+
+public:
 	void set_on_ground();
-	bool isJumping()const{return _jumping;}
 	void set_current_cube3(PeaceOfPath* c3);
 	float getX()const { return _position_in_x_direction;}
 	float getYfeet()const { return _position_in_y_direction - 1.25;}
@@ -40,10 +50,6 @@ public:
 	void draw_player() const;
 	void move_on_keyboard(int);
 	void advance();
-	std::pair<float, float> getXfeet() const{
-		return {_position_in_x_direction - 0.35, _position_in_x_direction + 0.35};
-
-	}
 };
 
 #endif

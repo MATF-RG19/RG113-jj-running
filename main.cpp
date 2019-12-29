@@ -88,9 +88,6 @@ static void keyboard(unsigned char c, int, int) {
 	glutPostRedisplay();
 		  }
 		  else s-=.1;
-		  player.move_on_keyboard(c);
-		 
-	glutPostRedisplay();
 }
 static void ky(int c, int, int) {
 	player.move_on_keyboard(c);
@@ -98,6 +95,7 @@ static void ky(int c, int, int) {
 static void timer(int value) {
 	RE.advance();
 	player.advance();
+
 	if(!stop)
 	glutTimerFunc(50, timer, 1);
 	glutPostRedisplay();

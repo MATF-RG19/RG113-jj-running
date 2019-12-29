@@ -4,7 +4,6 @@
 #include <time.h>
 
 class MovingCube : public PeaceOfPath {
-		  float add = 0.05;
 public:
 	MovingCube(){init();}
 	void init() override {
@@ -13,12 +12,15 @@ public:
 		_height = 0.45;
 		is_player_upper = false;
 		srand(time(NULL));
-
+		_dx = 0.05;
 		_yCoord = rand()%7 - 3;
+		_yCoord = 0;
+		_zCoord = 0;
+		_length = 2;
 	}
 	void advance() override{
-		_xCoord += add;
-		if(_xCoord >= 2 || _xCoord <= -2)add*=-1;
+		_xCoord += _dx;
+		if(_xCoord >= 2 || _xCoord <= -2)_dx*=-1;
 	}
 	void make()const override{
 //			std::cout << "_wit " << _width << std::endl;
@@ -32,7 +34,7 @@ public:
 
 		glPushMatrix();
 		glTranslatef(_xCoord, _yCoord, 0);	
-		glScalef(2*_width, 1, 10);
+		glScalef(2*_width, 1, 2*_length);
 		glutSolidCube(1);
 		glPopMatrix();
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, old_diffuse);

@@ -6,6 +6,8 @@
 
 Cube3::Cube3() {
 		  _yCoord = .45;
+		  _zCoord = 0;
+		  _length = 5;
 }
 void Cube3::make() const {
 	float diffuse[4] = {0, 0, 0, 1};
@@ -45,14 +47,17 @@ void Cube3::init() {
 		case 0: 
 			_visibles[2] = _visibles[1] = !(_visibles[0] = true);
 			_type = SWITCHING;
+			_speed_of_disapiring = .03;
 			break;
 		case 1:
 			_visibles[2] = _visibles[0] = !(_visibles[1] = true);
 			_type = SWITCHING;
+			_speed_of_disapiring = .06;
 			break;
 		case 2:
 			_visibles[1] = _visibles[0] = !(_visibles[2] = true);
 			_type = SWITCHING;
+			_speed_of_disapiring = .09;
 			break;
 		case 3: 
 			_visibles[2] = _visibles[1] = !(_visibles[0] = false);
@@ -74,7 +79,7 @@ void Cube3::advance() {
 	if(_type == ORDINARY)
 			  return;
 	else if (_type == SWITCHING) {
-		_num -= .03;	
+		_num -= _speed_of_disapiring;	
 		if(_num <= 0){
 			 _num = 1;
 			for(int i =0 ;i < 3; i++)

@@ -117,6 +117,7 @@ void Player::calculate_move_in_Ydir() {
 
 void Player::advance() {
 	_position_in_z_direction+=0.2;
+	_position_in_x_direction+=_dx;
 	if(_jumping || _falling)
 			  calculate_move_in_Ydir();
 
@@ -127,6 +128,7 @@ void Player::advance() {
 void Player::set_jumping() {
 	_jumping = true;
 	_initial_velocity_in_y_dirr = 8;
+	_dx = 0;
 }
 #include <iostream>
 void Player::move_on_keyboard(int c) {
@@ -136,9 +138,8 @@ void Player::move_on_keyboard(int c) {
 		  _position_in_x_direction+=.1;	  
 	else if(c == ' ' && !_jumping && !_falling)
 			  set_jumping();
-	else if(c == GLUT_KEY_UP){
-		if(_falling)
-				  _dh = (_slow_falling = !_slow_falling) ? 0.02 : 0.05;
+	else if(c == ' ' && _falling){
+				  _dh = (_slow_falling = !_slow_falling) ? 0.02 : 0.03;
 
 	}
 }
@@ -146,7 +147,6 @@ void Player::move_on_keyboard(int c) {
 
 void Player::set_current_cube3(PeaceOfPath* c3) {
 	_position_in_z_direction = -(c3->getLength()) / 2;
-	std::cout << _position_in_z_direction << " ajoj" << std::endl;
 	_current_cube3 = c3;
 	_current_cube3->check_if_player_is_on_this_and_update(*this);
 }
@@ -161,6 +161,7 @@ void Player::set_falling(){
 	}
 		_jumping = false;
 	_dh = 0.05;
+	_dx = 0;
 }
 
 void Player::set_on_ground(){_falling = _jumping = false;
