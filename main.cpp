@@ -85,7 +85,9 @@ static void keyboard(unsigned char c, int, int) {
 	RE.advance();
 	player.advance();
 
-	glutPostRedisplay();
+		  }
+		  else if (c == '1'){
+				player.addY();
 		  }
 		  else s-=.1;
 }
@@ -95,7 +97,6 @@ static void ky(int c, int, int) {
 static void timer(int value) {
 	RE.advance();
 	player.advance();
-
 	if(!stop)
 	glutTimerFunc(50, timer, 1);
 	glutPostRedisplay();

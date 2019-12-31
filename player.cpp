@@ -3,7 +3,7 @@
 #include "cube3.hpp"
 void Player::draw_legs() const { 
 	glPushMatrix();
-	if(!_slow_falling)
+	if(_movement != SLOW_FALLING)
 	{
 		glTranslatef(-.2, -.9, 0);
 		glRotatef(_rotating, 1, 0, 0);
@@ -20,7 +20,7 @@ void Player::draw_legs() const {
 	glPopMatrix();
 
 	glPushMatrix();
-	if(!_slow_falling)
+	if(_movement != SLOW_FALLING)
 	{
 		glTranslatef(.2, -.9, 0);
 		glRotatef(-_rotating, 1, 0, 0);
@@ -46,7 +46,7 @@ void Player::draw_body() const {
 void Player::draw_arms() const {
 	glPushMatrix();
 	glTranslatef(0.4, 0, 0);
-	if(_falling)
+	if(_movement == FALLING)
 			  glRotatef(_rotate_hends_when_falling > 100 ? 100 : _rotate_hends_when_falling, 0, 0, 1);
 	else
 		glRotatef(-_rotating, 1, 0, 0);
@@ -61,9 +61,8 @@ void Player::draw_arms() const {
 	glPushMatrix();
 	glTranslatef(-0.4, 0, 0);
 
-	if(_falling) {
+	if(_movement == FALLING)
 			  glRotatef(-_rotate_hends_when_falling < -100 ? -100 : -_rotate_hends_when_falling, 0, 0, 1);
-	}
 	else
 		glRotatef(_rotating, 1, 0, 0);
 	glScalef(0.14, .6, 0.4);
@@ -108,7 +107,7 @@ void Player::calculate_move_in_Ydir() {
 	float pom = _position_in_y_direction 
 			  +_initial_velocity_in_y_dirr*_dh-9.8*(_sec_in_air-0.05)*_dh-4.9*_dh*_dh;
 
-	if(_jumping && _position_in_y_direction >= pom)
+	if(_movement == JUMPING&& _position_in_y_direction >= pom)
 			  set_falling();
 
 	_position_in_y_direction = pom;
@@ -118,15 +117,17 @@ void Player::calculate_move_in_Ydir() {
 void Player::advance() {
 	_position_in_z_direction+=0.2;
 	_position_in_x_direction+=_dx;
-	if(_jumping || _falling)
+	if(_movement == JUMPING || _movement == FALLING || _movement == SLOW_FALLING)
 			  calculate_move_in_Ydir();
 
-	if(_falling)_rotate_hends_when_falling+=4;
+	if(_movement == FALLING || _movement == SLOW_FALLING)_rotate_hends_when_falling+=4;
 	run();
+	_previous_movement = _movement;
 	_current_cube3->check_if_player_is_on_this_and_update(*this);
 }
 void Player::set_jumping() {
-	_jumping = true;
+//	_jumping = true;
+	_movement = JUMPING;
 	_initial_velocity_in_y_dirr = 8;
 	_dx = 0;
 }
@@ -136,11 +137,15 @@ void Player::move_on_keyboard(int c) {
 		  _position_in_x_direction-=.1;
 	else if(c == GLUT_KEY_RIGHT)
 		  _position_in_x_direction+=.1;	  
-	else if(c == ' ' && !_jumping && !_falling)
+	else if(c == ' ' && _movement == ON_GROUND)
 			  set_jumping();
-	else if(c == ' ' && _falling){
-				  _dh = (_slow_falling = !_slow_falling) ? 0.02 : 0.03;
-
+	else if(c == ' ' && _movement == FALLING){
+			  _dh = 0.02;
+			  _movement = SLOW_FALLING;
+	}
+	else if(c == ' ' && _movement == SLOW_FALLING){
+			  _dh = 0.03;
+			  _movement = FALLING;
 	}
 }
 #include <iostream>
@@ -152,22 +157,22 @@ void Player::set_current_cube3(PeaceOfPath* c3) {
 }
 
 void Player::set_falling(){
-	_falling = true;
-	if(!_jumping)
+		std::cout <<"stavljen da pada" << std::endl;
+	if(_movement == ON_GROUND)
 		_initial_velocity_in_y_dirr = 0;
 	else 
 	{
 		_initial_velocity_in_y_dirr = 8;
 	}
-		_jumping = false;
+	_movement = FALLING;
 	_dh = 0.05;
 	_dx = 0;
 }
 
-void Player::set_on_ground(){_falling = _jumping = false;
+void Player::set_on_ground(){
 	_sec_in_air = 0;
 	_rotate_hends_when_falling = 0;
 	_initial_velocity_in_y_dirr = 0;
 	_dh = 0.05;
-	_slow_falling = false;
+	_movement = ON_GROUND;
 }

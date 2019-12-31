@@ -4,22 +4,19 @@
 #include <iostream>
 #include <utility>
 class Player {
-	enum TypeOfMovement {NOT_CHECKED, ON_GROUND, JUMPING, FALLING, SLOW_FALLING};
-	TypeOfMovement _movement = NOT_CHECKED;
 	friend class PeaceOfPath;
+	enum TypeOfMovement {UNKNOWN, ON_GROUND, JUMPING, FALLING, SLOW_FALLING};
+	TypeOfMovement _movement = FALLING, _previous_movement = UNKNOWN;
 	PeaceOfPath* _current_cube3;
 	float _position_in_x_direction = 0;
 	/*stavljamo igraca da u pocetku pada*/
-	float _position_in_y_direction = 10;
+	float _position_in_y_direction = 20;
 	float _position_in_z_direction = 0;
 	float _dx = 0, _dy = 0, _dz = 0;
 	int _rotating = 0;
 	float _in_air = 1.7;
 	float _sec_in_air = 0;
 	float _dh = 0.05;
-	bool _jumping = false;
-	bool _falling = true;
-	bool _slow_falling = false;
 	int _add= 1;
 	int _initial_velocity_in_y_dirr = 0;
 	int _rotate_hends_when_falling = 0;
@@ -29,7 +26,6 @@ class Player {
 	void draw_head() const;
 	void jump();
 	void run();
-	void falling_to_game_over();
 	void calculate_move_in_Ydir();
 	void set_jumping();
 	void set_y_position(float y) { _position_in_y_direction = y + 1.25;}
@@ -41,8 +37,9 @@ class Player {
 		return {_position_in_z_direction - 0.2, _position_in_z_direction + 0.2};
 	}
 
-public:
 	void set_on_ground();
+public:
+	void addY(){_position_in_y_direction += 10;}
 	void set_current_cube3(PeaceOfPath* c3);
 	float getX()const { return _position_in_x_direction;}
 	float getYfeet()const { return _position_in_y_direction - 1.25;}
