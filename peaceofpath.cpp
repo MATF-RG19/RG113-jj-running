@@ -63,3 +63,12 @@ void PeaceOfPath::check_if_player_is_on_this_and_update(Player &p) {
 	if(!is_player_on_ground && p._movement != Player::TypeOfMovement::FALLING && p._movement != Player::TypeOfMovement::SLOW_FALLING)
 			  p.set_falling();
 }
+void PeaceOfPath::make_cubes(int num) {
+	_xCoords = new float[num];
+	_yCoords = new float[num];
+	_zCoords = new float[num];
+	is_player_uppers = new bool[num];
+	for(int i =0;i  < num; i++)
+		_xCoords[i] = _yCoords[i] = _zCoords[i] = 0;
+	n = num;
+}

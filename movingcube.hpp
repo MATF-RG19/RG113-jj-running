@@ -2,25 +2,23 @@
 #include <GL/glut.h>
 #include <stdlib.h>
 #include <time.h>
-
+#include <iostream>
 class MovingCube : public PeaceOfPath {
 public:
-	MovingCube(){init();}
+	MovingCube(){
+			  _dx = 0.05;
+			  _width = 1;
+			  _height = 0.5;
+			  _length = 2;
+			  make_cubes(1);
+			  init();}
 	void init() override {
-		_xCoord = 0;
-		_width = 1;
-		_height = 0.45;
-		is_player_upper = false;
-		srand(time(NULL));
-		_dx = 0.05;
-		_yCoord = rand()%7 - 3;
-		_yCoord = 0;
-		_zCoord = 0;
-		_length = 2;
+			  is_player_uppers[0] = false;
 	}
 	void advance() override{
-		_xCoord += _dx;
-		if(_xCoord >= 2 || _xCoord <= -2)_dx*=-1;
+		_xCoords[0] += _dx;
+			  std::cout << "pozvan" << _xCoords[0] << std::endl;
+		if(_xCoords[0] >= 2 || _xCoords[0] <= -2)_dx*=-1;
 	}
 	void make()const override{
 //			std::cout << "_wit " << _width << std::endl;
@@ -33,8 +31,8 @@ public:
 
 
 		glPushMatrix();
-		glTranslatef(_xCoord, _yCoord, 0);	
-		glScalef(2*_width, 1, 2*_length);
+		glTranslatef(_xCoords[0], _yCoords[0], _zCoords[0]);	
+		glScalef(2*_width, 2*_height, 2*_length);
 		glutSolidCube(1);
 		glPopMatrix();
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, old_diffuse);

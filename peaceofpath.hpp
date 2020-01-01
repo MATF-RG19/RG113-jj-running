@@ -6,11 +6,11 @@ protected:
 	int n;
 	bool *is_player_uppers;
 	float *_xCoords, *_yCoords, *_zCoords;
-	float _yCoord, _xCoord, _zCoord;
 	float _dx, _dz, _dy;
 	float _width, _height, _length;
 	virtual bool check_if_player_is_on_this_X(Player&, int i);
 	virtual bool check_if_player_is_on_this_Z(Player&, int i);
+	void make_cubes(int n);
 	bool is_player_on_ground = false;
 	int length = 10;
 public:

@@ -5,8 +5,6 @@
 #include "player.hpp"
 
 Cube3::Cube3() {
-		  _yCoord = .45;
-		  _zCoord = 0;
 		  _length = 5;
 		  _height = .45;
 		  _width = 1;
