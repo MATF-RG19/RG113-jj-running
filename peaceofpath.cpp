@@ -49,7 +49,7 @@ void PeaceOfPath::check_if_player_is_on_this_and_update(Player& p, int i) {
 			is_player_uppers[i] = false;
 		}
 		else {
-			p._dx = _dx;
+			action_when_player_colide(p, i);
 			is_player_on_ground = true;
 			is_player_uppers[i] = false;
 		}
@@ -71,4 +71,7 @@ void PeaceOfPath::make_cubes(int num) {
 	for(int i =0;i  < num; i++)
 		_xCoords[i] = _yCoords[i] = _zCoords[i] = 0;
 	n = num;
+}
+void PeaceOfPath::action_when_player_colide(Player &p, int i) {
+			p._dx = i%2? -_dx :_dx;
 }

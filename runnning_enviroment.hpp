@@ -8,9 +8,7 @@ private:
 		  PeaceOfPath** paths;
 		  Player* _player;
 		  int _distance_between_paths= 1;
-		  bool _should_change = true;
 public:
-		  float position = 0;
 		  RunningPath(Player* player);
 		  void advance();
 		  void make_path()const;

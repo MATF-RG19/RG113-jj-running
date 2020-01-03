@@ -16,8 +16,7 @@ RunningPath::RunningPath(Player* player) {
 	player->set_current_cube3(paths[NumOfVisiblePath-2]);
 }
 void RunningPath::advance() {
-		  
-	if(_player->getZ() >= paths[NumOfVisiblePath-1]->getLength()/2) {
+	if(_player->getZ() >= paths[NumOfVisiblePath-2]->getLength()/2) {
 		reorder_new_path();
 		_player->set_current_cube3(paths[NumOfVisiblePath-2]);
 	} 
@@ -27,16 +26,18 @@ void RunningPath::advance() {
 }
 void RunningPath::make_path() const {
 	glPushMatrix();
-	glTranslatef(0, 0, paths[NumOfVisiblePath-1]->getLength());
-	for(int i = NumOfVisiblePath-1; i >= 0; i--) {
+	glTranslatef(0, 0, paths[NumOfVisiblePath-1]->getLength()/2 +
+						 paths[NumOfVisiblePath-2]->getLength()/2
+						 );
+//	std::cout << "ispiso " <<  paths[NumOfVisiblePath-1]->getLength() << std::endl;
+	for(int i = NumOfVisiblePath-1; i > 0; i--) {
 		paths[i]->make();
-		glTranslatef(0, 0, -10);
+		glTranslatef(0, 0, -paths[i]->getLength()/2 -paths[i-1]->getLength()/2);
 	}
+	paths[0]->make();
 	glPopMatrix();
 }
 void RunningPath::reorder_new_path() {
-	position = 12.5;
-	_should_change = true;
 	PeaceOfPath* pom = paths[NumOfVisiblePath-1];
 	for(int i = NumOfVisiblePath-1; i >= 1; i--)
 			  paths[i] = paths[i-1];
