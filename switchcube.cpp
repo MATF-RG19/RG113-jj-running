@@ -34,14 +34,10 @@ void SwitchCube::init() {
 		case 0:
 			speed_of_moving = .09;
 	}
+	is_player_uppers[0] = false;
 }
 void SwitchCube::make() const {
-
-	glPushMatrix();
 	float diffuse[4] = {0, 0, moving, 1};
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
-	glTranslatef(_xCoords[0], _yCoords[0], _zCoords[0]);
-	glScalef(2*_width, 2*_height, 2*_length);
-	glutSolidCube(1);
-	glPopMatrix();
+	PeaceOfPath::make();
 }

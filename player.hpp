@@ -5,6 +5,7 @@
 #include <utility>
 class Player {
 	friend class PeaceOfPath;
+	friend class MovingCube;
 	enum TypeOfMovement {UNKNOWN, ON_GROUND, JUMPING, FALLING, SLOW_FALLING};
 	TypeOfMovement _movement = FALLING, _previous_movement = UNKNOWN;
 	PeaceOfPath* _current_cube3;
@@ -27,7 +28,7 @@ class Player {
 	void jump();
 	void run();
 	void calculate_move_in_Ydir();
-	void set_jumping();
+	void set_jumping(float velocity = 8);
 	void set_y_position(float y) { _position_in_y_direction = y + 1.25;}
 	void set_falling();
 	std::pair<float, float> getXfeet() const{
@@ -47,6 +48,7 @@ public:
 	void draw_player() const;
 	void move_on_keyboard(int);
 	void advance();
+	int j = 30;
 };
 
 #endif

@@ -1,9 +1,10 @@
 #include "peaceofpath.hpp"
+#include "player.hpp"
 #include <GL/glut.h>
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
-int k = 5;
+int k = 11;
 class MovingCube : public PeaceOfPath {
 public:
 	MovingCube(){
@@ -16,6 +17,7 @@ public:
 			  float start = -(length_of_path)/2 + 5;
 			  for(int i = 0; i < k; i++) {
 					_zCoords[i] = start;
+					_yCoords[i] = -50;
 					std::cout << start << "st " << std::endl;
 					start += 9; 
 			  }
@@ -39,15 +41,13 @@ public:
 		glGetMaterialfv(GL_FRONT,GL_AMBIENT, old_ambient);
 		glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, diffuse);
 
-		for(int i= 0;i < k; i++){
-		glPushMatrix();
-		glTranslatef(_xCoords[i], _yCoords[i], _zCoords[i]);	
-		glScalef(2*_width, 2*_height, 2*_length);
-		glutSolidCube(1);
-		glPopMatrix();
-		}
+		PeaceOfPath::make();
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, old_diffuse);
 		glMaterialfv(GL_FRONT, GL_AMBIENT, old_ambient);
 	}
-
+	void action_when_player_colide(Player& p, int i) override{
+		PeaceOfPath::action_when_player_colide(p, i);
+		if(i == n-1)
+			p.set_jumping(50);
+	}
 };

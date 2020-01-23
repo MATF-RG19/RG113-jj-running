@@ -18,25 +18,7 @@ Cube3::Cube3() {
 void Cube3::make() const {
 	float diffuse[4] = {1, 0, 0, 1};
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
-	for(int i = 0; i < n; i++) {
-		glPushMatrix();
-		glTranslatef(_xCoords[i], _yCoords[i], _zCoords[i]);
-		glScalef(2*_width, 2*_height, 2*_length);
-
-		glutSolidCube(1);
-		glutWireCube(1);
-		glDisable(GL_LIGHTING);
-
-		if(is_player_uppers[i])
-				  glColor3f(0, 1, 0);
-		else 
-				  glColor3f(0, 0, 0);
-		glBegin(GL_POINTS);
-		glVertex3f(0,.5, 0);
-		glEnd();
-		glEnable(GL_LIGHTING);
-		glPopMatrix();
-	}
+	PeaceOfPath::make();
 }
 
 void Cube3::init() {

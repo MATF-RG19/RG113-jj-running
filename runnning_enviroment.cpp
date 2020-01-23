@@ -9,7 +9,7 @@
 RunningPath::RunningPath(Player* player) {
 	_player = player;
 	paths = new PeaceOfPath*[NumOfVisiblePath];
-	for(int i =1; i < NumOfVisiblePath; i++)
+	for(int i =2; i < NumOfVisiblePath; i++)
 			  paths[i] = new Cube3;
 	paths[0] = new MovingCube;
 	paths[1] = new SwitchCube;

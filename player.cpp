@@ -125,10 +125,10 @@ void Player::advance() {
 	_previous_movement = _movement;
 	_current_cube3->check_if_player_is_on_this_and_update(*this);
 }
-void Player::set_jumping() {
+void Player::set_jumping(float velocity) {
 //	_jumping = true;
 	_movement = JUMPING;
-	_initial_velocity_in_y_dirr = 8;
+	_initial_velocity_in_y_dirr = velocity;
 	_dx = 0;
 }
 #include <iostream>
