@@ -46,7 +46,7 @@ void Player::draw_body() const {
 void Player::draw_arms() const {
 	glPushMatrix();
 	glTranslatef(0.4, 0, 0);
-	if(_movement == FALLING)
+	if(_movement == FALLING || _movement == SLOW_FALLING)
 			  glRotatef(_rotate_hends_when_falling > 100 ? 100 : _rotate_hends_when_falling, 0, 0, 1);
 	else
 		glRotatef(-_rotating, 1, 0, 0);
@@ -61,7 +61,7 @@ void Player::draw_arms() const {
 	glPushMatrix();
 	glTranslatef(-0.4, 0, 0);
 
-	if(_movement == FALLING)
+	if(_movement == FALLING || _movement == SLOW_FALLING)
 			  glRotatef(-_rotate_hends_when_falling < -100 ? -100 : -_rotate_hends_when_falling, 0, 0, 1);
 	else
 		glRotatef(_rotating, 1, 0, 0);
