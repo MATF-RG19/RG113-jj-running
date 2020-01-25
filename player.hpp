@@ -48,7 +48,6 @@ public:
 	void draw_player() const;
 	void move_on_keyboard(int);
 	void advance();
-	int j = 30;
 };
 
 #endif

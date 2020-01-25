@@ -2,10 +2,6 @@
 #include <iostream>
 #include "runnning_enviroment.hpp"
 #include "player.hpp"
-float curr = -3.5;
-float murr = -5;
-int mv = 0;
-int rotate = 0;
 Player player;
 RunningPath RE(&player);
 static void display();
@@ -17,12 +13,9 @@ void init();
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	
 	glutInitWindowSize(640, 480);
-
-	glutCreateWindow("djole");
+	glutCreateWindow("igra");
 	init();
-
 	glutMainLoop();
 	return 0;
 }
@@ -55,10 +48,7 @@ static void display() {
 	gluLookAt(0, 3+player.getYfeet(), 6 - player.getZ(),
 				  0, player.getYfeet(), -player.getZ(),
 				  0, 1, 0);
-	glRotatef(mv, 0, 1, 0);
 	RE.make_path();
-//	glTranslatef(0, 0, 
-//						 6);
 	player.draw_player();
 
 	glMatrixMode(GL_MODELVIEW);
@@ -67,29 +57,21 @@ static void display() {
 	glPointSize(10);
 	glBegin(GL_POINTS);
 
-	glVertex3f(-0.5, curr, -10);
+	glVertex3f(-0.5, -3.5, -10);
 
 	glEnd();
 	glutSwapBuffers();
 }
 bool stop = false;
 static void keyboard(unsigned char c, int, int) {
-		  if(c == '+')mv++;
-		  else if (c == '-') mv--;
-		  else if(c == ' ')
+		  if(c == ' ')
 				player.move_on_keyboard(c);
 		  else if(c == 's')
 					 stop = true;
-		  else if(c == 'o')
-		  {
-	RE.advance();
-	player.advance();
-
-		  }
-		  else if (c == '1'){
+		  else if (c == '1')
 				player.addY();
-		  }
-		  else s-=.1;
+		  else if(c == 27)
+					 exit(0);
 }
 static void ky(int c, int, int) {
 	player.move_on_keyboard(c);

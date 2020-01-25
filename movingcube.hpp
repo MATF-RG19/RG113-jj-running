@@ -3,7 +3,6 @@
 #include <GL/glut.h>
 #include <stdlib.h>
 #include <time.h>
-#include <iostream>
 int k = 11;
 class MovingCube : public PeaceOfPath {
 public:
@@ -18,10 +17,10 @@ public:
 			  for(int i = 0; i < k; i++) {
 					_zCoords[i] = start;
 					_yCoords[i] = -50;
-					std::cout << start << "st " << std::endl;
 					start += 9; 
 			  }
-			  init();}
+			  init();
+	}
 	void init() override {
 			  for(int i = 0; i < k; i++)
 			  		is_player_uppers[i] = false;
@@ -33,7 +32,6 @@ public:
 		if(_xCoords[0] >= 2 || _xCoords[0] <= -2)_dx*=-1;
 	}
 	void make()const override{
-//			std::cout << "_wit " << _width << std::endl;
 		float diffuse[4] = {1, 0, 0, 1};	
 		float old_diffuse[4];
 		float old_ambient[4];

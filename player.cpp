@@ -82,7 +82,6 @@ void Player::draw_head() const {
 }
 
 void Player::draw_player() const {
-//	glTranslatef(0, _position_in_y_direction, 0);
 	glTranslatef(_position_in_x_direction, _position_in_y_direction, -_position_in_z_direction);
 	float ambient_diffuse[] = {1, 1, 0, 1};
 	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, ambient_diffuse);
@@ -93,7 +92,6 @@ void Player::draw_player() const {
 	ambient_diffuse[0] = ambient_diffuse[1] = ambient_diffuse[2] = .2;
 	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_diffuse);
 	glTranslatef(-_position_in_x_direction, -_position_in_y_direction, _position_in_z_direction);
-//	glTranslatef(0, -_position_in_y_direction, 0);
 }
 
 void Player::run() {
@@ -126,12 +124,10 @@ void Player::advance() {
 	_current_cube3->check_if_player_is_on_this_and_update(*this);
 }
 void Player::set_jumping(float velocity) {
-//	_jumping = true;
 	_movement = JUMPING;
 	_initial_velocity_in_y_dirr = velocity;
 	_dx = 0;
 }
-#include <iostream>
 void Player::move_on_keyboard(int c) {
 	if(c == GLUT_KEY_LEFT)
 		  _position_in_x_direction-=.1;
@@ -148,7 +144,6 @@ void Player::move_on_keyboard(int c) {
 			  _movement = FALLING;
 	}
 }
-#include <iostream>
 
 void Player::set_current_cube3(PeaceOfPath* c3) {
 	_position_in_z_direction = -(c3->getLength()) / 2;
@@ -157,13 +152,10 @@ void Player::set_current_cube3(PeaceOfPath* c3) {
 }
 
 void Player::set_falling(){
-		std::cout <<"stavljen da pada" << std::endl;
 	if(_movement == ON_GROUND)
 		_initial_velocity_in_y_dirr = 0;
 	else 
-	{
 		_initial_velocity_in_y_dirr = 8;
-	}
 	_movement = FALLING;
 	_dh = 0.05;
 	_dx = 0;

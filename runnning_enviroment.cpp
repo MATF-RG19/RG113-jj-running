@@ -41,7 +41,7 @@ void RunningPath::make_path() const {
 	glTranslatef(0, 0, paths[NumOfVisiblePath-1]->getLength()/2 +
 						 paths[NumOfVisiblePath-2]->getLength()/2
 						 );
-//	std::cout << "ispiso " <<  paths[NumOfVisiblePath-1]->getLength() << std::endl;
+
 	for(int i = NumOfVisiblePath-1; i > 0; i--) {
 		paths[i]->make();
 		glTranslatef(0, 0, -paths[i]->getLength()/2 -paths[i-1]->getLength()/2);
