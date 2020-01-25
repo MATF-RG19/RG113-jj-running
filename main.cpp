@@ -19,6 +19,7 @@ int main(int argc, char** argv) {
 	glutMainLoop();
 	return 0;
 }
+/*vrsi se inicijalizacija*/
 void init() {
 	glClearColor(0, 0, 0, 0);
 	
@@ -40,15 +41,18 @@ static void reshape(int w, int h) {
 	glLoadIdentity();
 	gluPerspective(90, 1, .1, 100);
 }
-float s = 1.7;
 static void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	/* gluLookat je postavljen tako da 
+	 * kamera prati igraca*/
 	gluLookAt(0, 3+player.getYfeet(), 6 - player.getZ(),
 				  0, player.getYfeet(), -player.getZ(),
 				  0, 1, 0);
+	/*crta se put*/
 	RE.make_path();
+	/*crta se igrac*/
 	player.draw_player();
 
 	glMatrixMode(GL_MODELVIEW);
@@ -63,6 +67,8 @@ static void display() {
 	glutSwapBuffers();
 }
 bool stop = false;
+/* prosledjuju se pritisci tastature
+ * igracu */ 
 static void keyboard(unsigned char c, int, int) {
 		  if(c == ' ')
 				player.move_on_keyboard(c);

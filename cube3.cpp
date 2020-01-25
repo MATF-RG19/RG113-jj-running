@@ -4,6 +4,8 @@
 #include "cube3.hpp"
 #include "player.hpp"
 
+/* Konsturktor pravi maksimalni 
+ * broj potrebnih kocki.*/
 Cube3::Cube3() {
 		  _length = 5;
 		  _height = .45;
@@ -15,14 +17,21 @@ Cube3::Cube3() {
 		  is_player_uppers = new bool[2];
 		  init();
 }
+/* Metod make crta put*/ 
 void Cube3::make() const {
+	/*Stavlja se zeljena boja*/
 	float diffuse[4] = {1, 0, 0, 1};
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
+	/*Zove se metod iz nasledjene klase
+	 *da nacrta kocke sa prethodno
+	 *postavljenom bojom*/
 	PeaceOfPath::make();
 }
 
 void Cube3::init() {
 	srand(time(NULL));
+	/*Random se generise broj kocki
+	 *i njihov raspored*/
 	switch(rand()%6) {
 		case 0: 
 			_xCoords[0] = -2;
@@ -52,6 +61,5 @@ void Cube3::init() {
 			n = 2;
 			break;
 	}
-	is_player_uppers[0] = false;
-	is_player_uppers[1] = false;
+	PeaceOfPath::init();
 }

@@ -1,19 +1,23 @@
 #include "player.hpp"
 #include "peaceofpath.hpp"
 #include <GL/glut.h>
-/*treba dodati.....*/
+/* Metod provera dali je igrac
+ * na postolju po x kordinati.
+ */
 bool PeaceOfPath::check_if_player_is_on_this_X(Player& p, int i) {
 	auto x_feets = p.getXfeet();
 	 return !(x_feets.second < _xCoords[i] - _width || x_feets.first > _xCoords[i] + _width);
 }
-
+/* Metod provera dali je igrac
+ * na postolju po z kordinati.
+ */
 bool PeaceOfPath::check_if_player_is_on_this_Z(Player& p, int i) {
 	auto z_feets = p.getZfeet();
 	 return !(z_feets.second < _zCoords[i] - _length|| z_feets.first > _zCoords[i] + _length);
 }
-/*Proverava dali je igrac na postolju tako
- *ako jeste onda ne radi nista ako nije 
- *stavi ga da pada*/
+/* Proverava dali je igrac na kocki sa 
+ * indeksom i i ako jeste stavi ga na 
+ * tu kocku, ako nije ne radi nista*/ 
 void PeaceOfPath::check_if_player_is_on_this_and_update(Player& p, int i) {
 	float y = p.getYfeet();
 	if(p._movement == Player::TypeOfMovement::FALLING 
@@ -57,8 +61,14 @@ void PeaceOfPath::check_if_player_is_on_this_and_update(Player& p, int i) {
 		}
 	}
 }
+/* Proverava dali je igrac na postolju(niz kocki)
+ * ako jeste stavlja ga na to postolje,
+ * a ako nije ne radi nista*/
 void PeaceOfPath::check_if_player_is_on_this_and_update(Player &p) {
 	is_player_on_ground = false;
+	/* prolazi se kroz sve kocke
+	 * da se vidi dali je igrac 
+	 * na nekoj*/
 	for(int i = 0; i < n; i++) {
 		check_if_player_is_on_this_and_update(p, i);
 	}
@@ -77,11 +87,12 @@ void PeaceOfPath::make_cubes(int num) {
 		_xCoords[i] = _yCoords[i] = _zCoords[i] = 0;
 	n = num;
 }
-
+/* Kad igrac stane na kocku, 
+ * kako ce kocka uticati na 
+ * njegovo kretanje.*/
 void PeaceOfPath::action_when_player_colide(Player &p, int i) {
-			p._dx = i%2? -_dx :_dx;
 }
-
+/*Metod crta kocke*/
 void PeaceOfPath::make() const {
 		for(int i = 0; i < n; i++) {
 		glPushMatrix();
@@ -101,4 +112,13 @@ void PeaceOfPath::make() const {
 		glEnable(GL_LIGHTING);
 		glPopMatrix();
 	}
+}
+/*Metod inicijalizuje deo puta*/
+void PeaceOfPath::init() {
+	/* Inicijalno se stavlja
+	 * da je igrac ispod svake 
+	 * kocke*/
+	for(int i = 0; i < n; i++)
+			  is_player_uppers[i] = false;
+
 }

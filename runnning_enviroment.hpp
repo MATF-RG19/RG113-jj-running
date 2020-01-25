@@ -6,16 +6,19 @@
 class Player;
 class RunningPath {
 private:
-		  int* currents;
+		  /* stored_path promenljiva cuva 
+			* delove puta*/
 		  PeaceOfPath** stored_path;
+		  /* paths promenljiva cuva
+			* delove puta iz stored_ptah koji 
+			* se koriste*/
 		  PeaceOfPath** paths;
+		  int* currents;
 		  Player* _player;
-		  int _distance_between_paths= 1;
 public:
 		  RunningPath(Player* player);
 		  void advance();
 		  void make_path()const;
 		  void reorder_new_path();
-		  static float granica;
 };
 #endif

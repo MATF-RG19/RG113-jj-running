@@ -7,10 +7,10 @@ class Player {
 	friend class PeaceOfPath;
 	friend class MovingCube;
 	enum TypeOfMovement {UNKNOWN, ON_GROUND, JUMPING, FALLING, SLOW_FALLING};
-	TypeOfMovement _movement = FALLING, _previous_movement = UNKNOWN;
-	PeaceOfPath* _current_cube3;
+	/*Igrac je postavljen da u pocetku pada*/
+	TypeOfMovement _movement = FALLING;
+	PeaceOfPath* current_peace_of_path;
 	float _position_in_x_direction = 0;
-	/*stavljamo igraca da u pocetku pada*/
 	float _position_in_y_direction = 20;
 	float _position_in_z_direction = 0;
 	float _dx = 0, _dy = 0, _dz = 0;
@@ -25,7 +25,6 @@ class Player {
 	void draw_body() const;
 	void draw_arms() const;
 	void draw_head() const;
-	void jump();
 	void run();
 	void calculate_move_in_Ydir();
 	void set_jumping(float velocity = 8);
@@ -37,11 +36,10 @@ class Player {
 	std::pair<float, float> getZfeet() const{
 		return {_position_in_z_direction - 0.2, _position_in_z_direction + 0.2};
 	}
-
 	void set_on_ground();
 public:
 	void addY(){_position_in_y_direction += 10;}
-	void set_current_cube3(PeaceOfPath* c3);
+	void set_current_peace_of_path(PeaceOfPath* c3);
 	float getX()const { return _position_in_x_direction;}
 	float getYfeet()const { return _position_in_y_direction - 1.25;}
 	float getZ()const {return _position_in_z_direction;}

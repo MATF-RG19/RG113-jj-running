@@ -2,7 +2,8 @@
 #include <GL/glut.h>
 
 class SwitchCube : public PeaceOfPath {
-	float speed_of_moving, moving;
+	float speed_of_moving;
+	float moving;
 public:
 	SwitchCube();
 	void advance() override;
