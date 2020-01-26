@@ -2,6 +2,8 @@
 #define _SKOR_
 #include <GL/glut.h>
 #include <iostream>
+/* Klasa koja menja skor igraca
+ * i ispisuje na ekran*/
 class Skor {
 	int potencijalni_skor = 0;
 	int skor = 0;
@@ -11,6 +13,11 @@ public:
 	Skor& operator++(){
 		potencijalni_skor++;
 		return *this;
+	}
+	bool is_game_over = false;
+	void set_wh(int ww, int hh) {
+		  w = ww;
+		  h = hh;
 	}
 	void make_potential_real() {
 		skor = potencijalni_skor;

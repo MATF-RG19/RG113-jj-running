@@ -123,6 +123,8 @@ void Player::calculate_move_in_Ydir() {
 			  set_falling();
 
 	_position_in_y_direction = pom;
+	if(pom <= -60)
+			  skor->is_game_over = true;
 
 }
 /* Metod koji pomera igraca
@@ -154,11 +156,11 @@ void Player::move_on_keyboard(int c) {
 	else if(c == ' ' && _movement == ON_GROUND)
 			  set_jumping();
 	else if(c == ' ' && _movement == FALLING){
-			  _dh = 0.02;
+			  _dh = 0.01;
 			  _movement = SLOW_FALLING;
 	}
 	else if(c == ' ' && _movement == SLOW_FALLING){
-			  _dh = 0.03;
+			  _dh = 0.02;
 			  _movement = FALLING;
 	}
 }

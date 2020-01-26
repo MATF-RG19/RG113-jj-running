@@ -10,12 +10,14 @@ Cube3::Cube3() {
 		  _length = 5;
 		  _height = .45;
 		  _width = 1;
-		  n = 2;
+		  
 		  _xCoords = new float[2];
 		  _zCoords = new float[2];
 		  _yCoords = new float[2];
 		  is_player_uppers = new bool[2];
-		  init();
+		  n = 1;
+		  _xCoords[0] = _yCoords[0] = _zCoords[0] = 0;
+		  is_player_uppers[0] = false;
 }
 /* Metod make crta put*/ 
 void Cube3::make() const {
