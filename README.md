@@ -18,7 +18,7 @@ Uputstvo:
 <kbd>r</kbd> pokretanje igrice <br>
 <kbd>r</kbd> ponovo pokrece igricu <br>
 <kbd>ESC</kbd> gasi se igra <br>
-<kbd>&#8592</kbd> levo <br>
+<kbd>:arrow_left:</kbd> levo <br>
 <kbd>SPACE</kbd> skok dok je igrac na zemlji, dok igrac pada ukljucuje sporo padanje <br>
 
 ### :wrench: Instalacija:
