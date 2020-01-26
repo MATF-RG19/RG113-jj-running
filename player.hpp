@@ -3,6 +3,7 @@
 #include "peaceofpath.hpp"
 #include <iostream>
 #include <utility>
+#include "skor.hpp"
 class Player {
 	friend class PeaceOfPath;
 	friend class MovingCube;
@@ -10,6 +11,7 @@ class Player {
 	/*Igrac je postavljen da u pocetku pada*/
 	TypeOfMovement _movement = FALLING;
 	PeaceOfPath* current_peace_of_path;
+	Skor* skor;
 	float _position_in_x_direction = 0;
 	float _position_in_y_direction = 20;
 	float _position_in_z_direction = 0;
@@ -38,11 +40,15 @@ class Player {
 	}
 	void set_on_ground();
 public:
+	Player(Skor* s) : skor(s){}
 	void addY(){_position_in_y_direction += 10;}
 	void set_current_peace_of_path(PeaceOfPath* c3);
 	float getX()const { return _position_in_x_direction;}
 	float getYfeet()const { return _position_in_y_direction - 1.25;}
 	float getZ()const {return _position_in_z_direction;}
+	Skor* get_skor() const {
+		return skor;
+	}
 	void draw_player() const;
 	void move_on_keyboard(int);
 	void advance();

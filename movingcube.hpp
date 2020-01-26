@@ -49,6 +49,7 @@ public:
 		glMaterialfv(GL_FRONT, GL_AMBIENT, old_ambient);
 	}
 	void action_when_player_colide(Player& p, int i) override{
+		PeaceOfPath::action_when_player_colide(p, i);
 		/* Odredjuje se smer kocke
 		 * i igrac dobija taj smer*/
 	  	p._dx = i%2? -_dx : _dx;

@@ -4,15 +4,17 @@
 
 #include "cube3.hpp"
 #include "player.hpp"
+#include "skor.hpp"
 #include "movingcube.hpp"
 #include "switchcube.hpp"
 /* Konstruktor koji pravi celo 
  * okruzenje oko igraca*/
-RunningPath::RunningPath(Player* player)
+RunningPath::RunningPath(Player* player, Skor* sk)
 {
 	int num_of_switch = 7;
 	int num_of_move = 4;
 	_player = player;
+	skor = sk;
 	stored_path = new PeaceOfPath*[NumOfStoredPath];
 	currents = new int[NumOfVisiblePath];
 	for(int i = 0; i < NumOfStoredPath-num_of_switch-num_of_move; i++)
@@ -68,6 +70,7 @@ void RunningPath::make_path() const {
  * stored_paths, i ubacuje random deo 
  * puta iz stored_paths u paths*/
 void RunningPath::reorder_new_path() {
+	++*skor;
 	for(int i = NumOfVisiblePath-1; i >= 1; i--) {
 			  paths[i] = paths[i-1];
 			  currents[i] = currents[i-1];

@@ -91,6 +91,7 @@ void PeaceOfPath::make_cubes(int num) {
  * kako ce kocka uticati na 
  * njegovo kretanje.*/
 void PeaceOfPath::action_when_player_colide(Player &p, int i) {
+		 p.get_skor()->make_potential_real();
 }
 /*Metod crta kocke*/
 void PeaceOfPath::make() const {

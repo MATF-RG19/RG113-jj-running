@@ -2,8 +2,10 @@
 #include <iostream>
 #include "runnning_enviroment.hpp"
 #include "player.hpp"
-Player player;
-RunningPath RE(&player);
+#include "skor.hpp"
+Skor s(640, 480);
+Player player(&s);
+RunningPath RE(&player, &s);
 static void display();
 static void reshape(int, int);
 static void keyboard(unsigned char, int, int);
@@ -45,6 +47,8 @@ static void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	s.draw();
+
 	/* gluLookat je postavljen tako da 
 	 * kamera prati igraca*/
 	gluLookAt(0, 3+player.getYfeet(), 6 - player.getZ(),

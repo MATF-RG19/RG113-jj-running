@@ -1,6 +1,6 @@
-igra: main.cpp runnning_enviroment.o cube3.o player.o peaceofpath.o switchcube.o
+igra: main.cpp runnning_enviroment.o cube3.o player.o peaceofpath.o switchcube.o skor.hpp
 	g++ -o igra main.cpp runnning_enviroment.o cube3.o switchcube.o player.o peaceofpath.o -lglut -lGL -lGLU
-runnning_enviroment.o: runnning_enviroment.cpp runnning_enviroment.hpp movingcube.hpp
+runnning_enviroment.o: runnning_enviroment.cpp runnning_enviroment.hpp movingcube.hpp skor.hpp
 	g++ -c runnning_enviroment.cpp
 switchcube.o: switchcube.cpp switchcube.hpp
 	g++ -c switchcube.cpp

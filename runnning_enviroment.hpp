@@ -4,6 +4,7 @@
 #define NumOfVisiblePath 8
 #define NumOfStoredPath 20
 class Player;
+class Skor;
 class RunningPath {
 private:
 		  /* stored_path promenljiva cuva 
@@ -15,8 +16,9 @@ private:
 		  PeaceOfPath** paths;
 		  int* currents;
 		  Player* _player;
+		  Skor* skor;
 public:
-		  RunningPath(Player* player);
+		  RunningPath(Player* player, Skor* skor);
 		  void advance();
 		  void make_path()const;
 		  void reorder_new_path();
