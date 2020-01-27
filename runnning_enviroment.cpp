@@ -12,7 +12,7 @@
 RunningPath::RunningPath(Player* player, Skor* sk)
 {
 	int num_of_switch = 7;
-	int num_of_move = 4;
+	int num_of_move = 2;
 	_player = player;
 	skor = sk;
 	stored_path = new PeaceOfPath*[NumOfStoredPath];
@@ -35,6 +35,14 @@ RunningPath::RunningPath(Player* player, Skor* sk)
 			  currents[i] = i;
 	}	
 	player->set_current_peace_of_path(paths[NumOfVisiblePath-2]);
+}
+
+RunningPath::~RunningPath() {
+	for(int i =0; i < NumOfStoredPath; i++)
+			  delete stored_path[i];
+	delete[] stored_path;
+	delete[] currents;
+	delete[] paths;
 }
 /* Promena celog puta u 
  * zavisnosti od vremena*/

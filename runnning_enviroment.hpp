@@ -19,6 +19,7 @@ private:
 		  Skor* skor;
 public:
 		  RunningPath(Player* player, Skor* skor);
+		  ~RunningPath();
 		  void advance();
 		  void make_path()const;
 		  void reorder_new_path();
